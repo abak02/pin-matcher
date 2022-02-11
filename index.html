@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input class="form-control" type="text" id="random-area">
+                    <button id="generate-button" class="generate-btn">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id='check-number'class="form-control" type="text">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div class="button" id="num7">7</div>
+                              <div class="button" id="num8">8</div>
+                              <div class="button" id="num9">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" id="num4">4</div>
+                              <div class="button" id="num5">5</div>
+                              <div class="button" id="num6">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" id="num1">1</div>
+                              <div class="button" id="num2">2</div>
+                              <div class="button" id="num3">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button" id="numBack">&lt;</div>
+                                <div class="button" id="num0">0</div>
+                                <div class="button" id="numCancel">C</div>
+                            </div>
+                            <div>
+                                <button type="submit" class="submit-btn"id="submit-button">Submit</button>
+                                <p class="action-left" id="try-left"><span id="try">3</span>try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p class="notify" id="pin-unmatched">❌ Pin Didn't Match, Please try again</p>
+            <p class="notify" id="pin-matched">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+
+
+
+    <script>
+        function initialCondition(){
+            document.getElementById('pin-matched').style.display = "none";
+            document.getElementById('pin-unmatched').style.display = "none";
+            document.getElementById('submit-button').disabled=false;
+            document.getElementById('try').innerText=3;
+        }
+        //Generate Random Number
+        const generateButton= document.getElementById('generate-button');
+        generateButton.addEventListener('click',function(){
+            const randomNumber=Math.round(1000+Math.random()*9000);
+            const randomArea=document.getElementById("random-area");
+            randomArea.value=randomNumber;
+            initialCondition();
+        })
+        
+        //type in text area
+        document.getElementById("num0").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            document.getElementById("check-number").value=checkNumber+document.getElementById("num0").innerText;
+        });
+        document.getElementById("num1").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            document.getElementById("check-number").value=checkNumber+document.getElementById("num1").innerText;
+        });
+        document.getElementById("num2").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            document.getElementById("check-number").value=checkNumber+document.getElementById("num2").innerText;
+        });
+        document.getElementById("num3").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            document.getElementById("check-number").value=checkNumber+document.getElementById("num3").innerText;
+        });
+        document.getElementById("num4").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            document.getElementById("check-number").value=checkNumber+document.getElementById("num4").innerText;
+        });
+        document.getElementById("num5").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            document.getElementById("check-number").value=checkNumber+document.getElementById("num5").innerText;
+        });
+        document.getElementById("num6").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            document.getElementById("check-number").value=checkNumber+document.getElementById("num6").innerText;
+        });
+        document.getElementById("num7").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            document.getElementById("check-number").value=checkNumber+document.getElementById("num7").innerText;
+        });
+        document.getElementById("num8").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            document.getElementById("check-number").value=checkNumber+document.getElementById("num8").innerText;
+        });
+        document.getElementById("num9").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            document.getElementById("check-number").value=checkNumber+document.getElementById("num9").innerText;
+        });
+        document.getElementById("numBack").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            const str=document.getElementById("check-number").value;
+            const newStr=str.slice(0,-1);
+            document.getElementById("check-number").value=newStr;
+        });
+        document.getElementById("numCancel").addEventListener('click',function(){
+            const checkNumber=document.getElementById("check-number").value;
+            document.getElementById("check-number").value="";
+        });
+        //checking two number
+        const submitButton=document.getElementById('submit-button');
+        submitButton.addEventListener('click',function(){
+            const inputValue = document.getElementById('check-number').value;
+            const randomValue=document.getElementById('random-area').value;
+            if(randomValue===inputValue){
+                document.getElementById('pin-matched').style.display = "block";
+                document.getElementById('pin-unmatched').style.display = "none";
+                document.getElementById('check-number').value="";
+                document.getElementById('random-area').value="";
+                document.getElementById('try').innerText=3;
+            }
+            else{
+                document.getElementById('pin-unmatched').style.display = "block";
+                document.getElementById('pin-matched').style.display = "none";
+                const tryNumber=parseInt(document.getElementById('try').innerText);
+                const newTryNumber=tryNumber-1;
+                document.getElementById('check-number').value="";
+                if(newTryNumber>0){
+                    document.getElementById('try').innerText=newTryNumber;
+
+                }
+                else{
+                    document.getElementById('try').innerText=0;
+                    document.getElementById('submit-button').disabled=true;
+                    document.getElementById('random-area').value="";
+                }
+            }
+        })
+        
+    </script>
+</body>
+</html>
